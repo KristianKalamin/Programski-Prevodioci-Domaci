@@ -46,14 +46,14 @@ int checkInputChar(FILE *f)
     return TRUE;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-    FILE *errorChar = fopen("test2.txt", "r");
+    FILE *errorChar = fopen(argv[1], "r");
 
     if (checkInputChar(errorChar))
     {
 
-        FILE *f = fopen("test2.txt", "r");
+        FILE *f = fopen(argv[1], "r");
         char c;
         int numOfCword,x, itn = 0;
         while ((c = getc(f)) != EOF)
