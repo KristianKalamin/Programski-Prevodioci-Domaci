@@ -92,7 +92,6 @@ FILE *printEndWord(FILE *f, int *start)
     {
         if (isDot(c))
         {
-            //ungetc(c,f);
             break;
         }
         else
@@ -102,13 +101,13 @@ FILE *printEndWord(FILE *f, int *start)
     return f;
 }
 
-int main(/*int argc, char *argv[]*/)
+int main(int argc, char *argv[])
 {
-    FILE *errorChar = fopen("test.txt" /*argv[1]*/, "r");
+    FILE *errorChar = fopen(argv[1], "r");
 
     if (checkInputChar(errorChar))
     {
-        FILE *f = fopen("test.txt" /*argv[1]*/, "r");
+        FILE *f = fopen(argv[1], "r");
         char c;
         int startOfWord = 0;
 
@@ -124,7 +123,7 @@ int main(/*int argc, char *argv[]*/)
             if (startOfWord > 0)
                 f = printEndWord(f, &startOfWord);
               if (isDot(c) || whiteSpace(c))
-                c = getc(f); // to skip dot
+                c = getc(f); 
             if (c == EOF)
                 break;
             else
