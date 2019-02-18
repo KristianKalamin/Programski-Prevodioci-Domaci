@@ -123,13 +123,15 @@ int main(int argc, char *argv[])
             if (startOfWord > 0)
                 f = printEndWord(f, &startOfWord);
               if (isDot(c) || whiteSpace(c))
-                c = getc(f); 
+                c = getc(f);
             if (c == EOF)
                 break;
             else
                 f = printStartWord(f);
         }
+        fclose(f);
     }
+    fclose(errorChar);
 
     return 0;
 }
