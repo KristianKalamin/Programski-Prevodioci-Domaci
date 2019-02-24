@@ -2,14 +2,6 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-int whiteSpace(int x)
-{
-    if (x == ' ' || x == '\t' || x == '\n')
-        return 1;
-    else
-        return 0;
-}
-
 int main(int argc, char *argv[])
 {
     FILE *f = fopen(argv[1], "r");
