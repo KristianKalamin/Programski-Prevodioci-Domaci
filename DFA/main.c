@@ -1,104 +1,207 @@
 #include <stdio.h>
 #include <ctype.h>
-
-#define TRUE 1
-#define FALSE 0
-
-int isDot(int x)
-{
-    if (x == 46)
-        return TRUE;
-    return FALSE;
-}
+#include <stdlib.h>
 
 int whiteSpace(int x)
 {
-    if (x == 32 || x == 9 || x == 10 || x == '\000')
-        return TRUE;
+    if (x == ' ' || x == '\t' || x == '\n')
+        return 1;
     else
-        return FALSE;
-}
-
-int isIllegalChar(int x)
-{
-    if ((x >= 65 && x <= 90) || (x >= 97 && x <= 122) || x == 46)
-        return FALSE;
-    else
-        return TRUE;
-}
-
-FILE *other(FILE *f)
-{
-    char c;
-    while ((c = getc(f)) != EOF)
-    {
-        if (islower(c))
-            printf("%c", c);
-        else
-            break;
-    }
-    ungetc(c, f);
-    return f;
-}
-
-int checkInputChar(FILE *f)
-{
-    char c;
-    while ((c = getc(f)) != EOF)
-    {
-        if (isIllegalChar(c) && !whiteSpace(c))
-        {
-            printf("\nGRESKA: %c", c);
-            return FALSE;
-        }
-    }
-    return TRUE;
+        return 0;
 }
 
 int main(int argc, char *argv[])
 {
-    FILE *errorChar = fopen(argv[1], "r");
+    FILE *f = fopen(argv[1], "r");
 
-    if (checkInputChar(errorChar))
+    int state = 0, i = 0;
+    char c;
+    char *word = (char *)malloc(256 * sizeof(char));
+
+    while (1)
     {
-
-        char *word = "WORD ";
-        char *cword = "CWORD ";
-        FILE *f = fopen(argv[1], "r");
-        char c;
-        int node = 0;
-        while ((c = getc(f)) != EOF)
+        switch (state)
         {
-            if (whiteSpace(c))
-                continue;
-            else if (isDot(c))
-                node = 1;
+        case 0:
+        {
+            c = getc(f);
+            if (c == ' ' || c == '\t' || c == '\n')
+                state = 0;
+            else if (c == '.')
+                state = 1;
             else if (isupper(c))
-                node = 2;
-            else
-                node = 4;
-
-            switch (node)
             {
-                case 1: //DOT
-                    printf("DOT - %c\n", c);
-                    break;
-                case 2: // CAPITAL_LETTER
-                    printf("%c", c);
-                    f = other(f);
-                    printf(" - %s\n", cword);
-                    break;
-                case 4: //SMALL_LETTER
-                    printf("%c", c);
-                    f = other(f);
-                    printf(" - %s\n", word);
-                    break;
-                default:
-                    break;
+                state = 2;
+                word[i] = c;
+                i++;
             }
+            else if (islower(c))
+            {
+                state = 4;
+                word[i] = c;
+                i++;
+            }
+            else if (c == EOF)
+                return 0;
+            else
+                state = 6;
+        };
+        break;
+        case 1:
+        {
+            printf("DOT - %c\n", c);
+            c = getc(f);
+            if (c == ' ' || c == '\t' || c == '\n')
+                state = 0;
+            else if (c == '.')
+                state = 1;
+            else if (isupper(c))
+            {
+                state = 2;
+                word[i] = c;
+                i++;
+            }
+            else if (islower(c))
+            {
+                state = 4;
+                word[i] = c;
+                i++;
+            }
+            else if (c == EOF)
+                return 0;
+            else
+                state = 6;
+        };
+        break;
+        case 2:
+        {
+            c = getc(f);
+            if (c == ' ' || c == '\t' || c == '\n')
+                state = 3;
+            else if (c == '.')
+            {
+                ungetc(c,f);
+                state = 3;
+            }
+
+            else if (isupper(c))
+            {
+                state = 3;
+                ungetc(c,f);
+            }
+            else if (islower(c))
+            {
+                state = 2;
+                word[i] = c;
+                i++;
+            }
+            else if (c == EOF)
+                return 0;
+            else
+                state = 6;
+        };
+        break;
+        case 3:
+        {
+            printf("CWORD - ");
+            for(int j = 0; j < i; j++)
+                printf("%c", word[j]);
+            printf("\n");
+
+            free(word);
+            word = (char *)malloc(265 * sizeof(char));
+            i = 0;
+            c = getc(f);
+            if (c == ' ' || c == '\t' || c == '\n')
+                state = 0;
+            else if (c == '.')
+                state = 1;
+            else if (isupper(c))
+            {
+                state = 2;
+                word[i] = c;
+                i++;
+            }
+            else if (islower(c))
+            {
+                state = 4;
+                word[i] = c;
+                i++;
+            }
+            else if (c == EOF)
+                return 0;
+            else
+                state = 6;
+        };
+        break;
+        case 4:
+        {
+            c = getc(f);
+            if (c == ' ' || c == '\t' || c == '\n')
+                state = 5;
+            else if (c == '.')
+            {
+                ungetc(c,f);
+                state = 5;
+            }
+            else if (isupper(c))
+            {
+                state = 5;
+                ungetc(c,f);
+            }
+            else if (islower(c))
+            {
+                state = 4;
+                word[i] = c;
+                i++;
+            }
+            else if (c == EOF)
+                return 0;
+            else
+                state = 6;
+        };
+        break;
+        case 5:
+        {
+            printf("WORD - ");
+            for(int j = 0; j < i; j++)
+                printf("%c", word[j]);
+            printf("\n");
+
+            free(word);
+            word = (char *)malloc(265 * sizeof(char));
+            i = 0;
+            c = getc(f);
+            if (c == ' ' || c == '\t' || c == '\n')
+                state = 0;
+            else if (c == '.')
+                state = 1;
+            else if (isupper(c))
+            {
+                state = 2;
+                word[i] = c;
+                i++;
+            }
+            else if (islower(c))
+            {
+                state = 4;
+                word[i] = c;
+                i++;
+            }
+            else if (c == EOF)
+                return 0;
+            else
+                state = 6;
+        };
+        break;
+        case 6:
+        {
+            printf("GRESKA - %c", c);
+            return 0;
+        };
+        break;
+        default:
+            break;
         }
-        fclose(f);
     }
-    fclose(errorChar);
-    return 0;
 }
