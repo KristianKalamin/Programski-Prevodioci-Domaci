@@ -10,7 +10,7 @@ int whiteSpace(int c)
         return 0;
 }
 
-int isDot(c)
+int isDot(int c)
 {
     if (isDot(c))
         return 1;
