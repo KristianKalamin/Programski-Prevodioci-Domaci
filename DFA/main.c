@@ -2,6 +2,22 @@
 #include <ctype.h>
 #include <stdlib.h>
 
+int whiteSpace(int c)
+{
+    if (c == ' ' || c == '\t' || c == '\n')
+        return 1;
+    else
+        return 0;
+}
+
+int isDot(c)
+{
+    if (isDot(c))
+        return 1;
+    else
+        return 0;
+}
+
 int main(int argc, char *argv[])
 {
     FILE *f = fopen(argv[1], "r");
@@ -17,9 +33,9 @@ int main(int argc, char *argv[])
         case 0:
         {
             c = getc(f);
-            if (c == ' ' || c == '\t' || c == '\n')
+            if (whiteSpace(c))
                 state = 0;
-            else if (c == '.')
+            else if (isDot(c))
                 state = 1;
             else if (isupper(c))
             {
@@ -43,9 +59,9 @@ int main(int argc, char *argv[])
         {
             printf("DOT - %c\n", c);
             c = getc(f);
-            if (c == ' ' || c == '\t' || c == '\n')
+            if (whiteSpace(c))
                 state = 0;
-            else if (c == '.')
+            else if (isDot(c))
                 state = 1;
             else if (isupper(c))
             {
@@ -68,18 +84,18 @@ int main(int argc, char *argv[])
         case 2:
         {
             c = getc(f);
-            if (c == ' ' || c == '\t' || c == '\n')
+            if (whiteSpace(c))
                 state = 3;
-            else if (c == '.')
+            else if (isDot(c))
             {
-                ungetc(c,f);
+                ungetc(c, f);
                 state = 3;
             }
 
             else if (isupper(c))
             {
                 state = 3;
-                ungetc(c,f);
+                ungetc(c, f);
             }
             else if (islower(c))
             {
@@ -96,7 +112,7 @@ int main(int argc, char *argv[])
         case 3:
         {
             printf("CWORD - ");
-            for(int j = 0; j < i; j++)
+            for (int j = 0; j < i; j++)
                 printf("%c", word[j]);
             printf("\n");
 
@@ -104,9 +120,9 @@ int main(int argc, char *argv[])
             word = (char *)malloc(265 * sizeof(char));
             i = 0;
             c = getc(f);
-            if (c == ' ' || c == '\t' || c == '\n')
+            if (whiteSpace(c))
                 state = 0;
-            else if (c == '.')
+            else if (isDot(c))
                 state = 1;
             else if (isupper(c))
             {
@@ -129,17 +145,17 @@ int main(int argc, char *argv[])
         case 4:
         {
             c = getc(f);
-            if (c == ' ' || c == '\t' || c == '\n')
+            if (whiteSpace(c))
                 state = 5;
-            else if (c == '.')
+            else if (isDot(c))
             {
-                ungetc(c,f);
+                ungetc(c, f);
                 state = 5;
             }
             else if (isupper(c))
             {
                 state = 5;
-                ungetc(c,f);
+                ungetc(c, f);
             }
             else if (islower(c))
             {
@@ -156,7 +172,7 @@ int main(int argc, char *argv[])
         case 5:
         {
             printf("WORD - ");
-            for(int j = 0; j < i; j++)
+            for (int j = 0; j < i; j++)
                 printf("%c", word[j]);
             printf("\n");
 
@@ -164,9 +180,9 @@ int main(int argc, char *argv[])
             word = (char *)malloc(265 * sizeof(char));
             i = 0;
             c = getc(f);
-            if (c == ' ' || c == '\t' || c == '\n')
+            if (whiteSpace(c))
                 state = 0;
-            else if (c == '.')
+            else if (isDot(c))
                 state = 1;
             else if (isupper(c))
             {
