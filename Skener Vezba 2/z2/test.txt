@@ -1,0 +1,10 @@
+Tekst pre komentara
+// single line comment
+
+Tekst posle komentara
+Tekst pre blok komentara
+/*
+    Blok Komentar
+*/
+
+Tekst posle blok komentara
