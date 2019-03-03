@@ -443,10 +443,8 @@ char *yytext;
 #line 2 "temp.l"
     int F = 0;
     int C = 0;
-    int i = 0;
-    char a[3];
-#line 449 "lex.yy.c"
-#line 450 "lex.yy.c"
+#line 447 "lex.yy.c"
+#line 448 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -663,9 +661,9 @@ YY_DECL
 		}
 
 	{
-#line 7 "temp.l"
+#line 5 "temp.l"
 
-#line 669 "lex.yy.c"
+#line 667 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -724,29 +722,22 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 8 "temp.l"
-{   while(yytext[i] != 'F')
-               {
-                   a[i] = yytext[i]; 
-                   i++;
-               }
-            i++;
-            a[i] = '\n';
-            sscanf(a, "%d", &F);
+#line 6 "temp.l"
+{   
+            F = atoi(yytext);
             C = (F-32) * 5/9;
             printf("%dC", C);
-
-            i = 0;
+            
             C = 0;
             F = 0;
         } 
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 25 "temp.l"
+#line 16 "temp.l"
 ECHO;
 	YY_BREAK
-#line 750 "lex.yy.c"
+#line 741 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1751,4 +1742,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 25 "temp.l"
+#line 16 "temp.l"
