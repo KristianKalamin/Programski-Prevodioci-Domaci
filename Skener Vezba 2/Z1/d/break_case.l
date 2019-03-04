@@ -1,2 +1,2 @@
 %%
-break { printf("Prepoznato je: %s ",yytext); }
+[Bb][Rr][Ee][Aa][Kk] { printf("Prepoznato je: %s ",yytext); }
