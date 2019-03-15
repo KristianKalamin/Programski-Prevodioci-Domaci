@@ -1,6 +1,6 @@
 %{
     #include <stdio.h>
-    #define YYSTPE char*
+    #define YYSTYPE char*
     int yylex(void);
     int yyparse(void);
     int yyerror(char *s);
