@@ -46,7 +46,9 @@ extern int yydebug;
   enum yytokentype
   {
     _NEWLINE = 258,
-    _PASUS = 259
+    _WORD = 259,
+    _DOT = 260,
+    _CAPITAL_WORD = 261
   };
 #endif
 

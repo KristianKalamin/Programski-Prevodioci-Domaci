@@ -9,14 +9,23 @@
 %}
 
 %token _NEWLINE
-%token _PASUS
+%token _WORD
+%token _DOT
+%token _CAPITAL_WORD
 
 %%
 
 pasus
-    : /*empty text*/
-    | pasus _PASUS  {broj_pasusa++;} 
+    : 
+    | pasus _CAPITAL_WORD e _NEWLINE {broj_pasusa++;}
     ;
+e
+    :
+    | _WORD e
+    | _CAPITAL_WORD e
+    | _DOT e
+    ;
+
 
 %%
 
