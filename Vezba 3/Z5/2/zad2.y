@@ -15,13 +15,16 @@
 %%
     word
         : 
-        | word  _WORD  n
-        | _DOT
+        | word _WORD n
         ;
   
     n
         :
-        | n _DOT  _WORD {printf("%c",toupper(yylval[0]));
+        | n _DOT x
+        ;
+    x
+        :
+        | _WORD {printf("%c",toupper(yylval[0]));
                     while(yylval[i] != 0){
                     printf("%c", yylval[i]);
                     i++;}
