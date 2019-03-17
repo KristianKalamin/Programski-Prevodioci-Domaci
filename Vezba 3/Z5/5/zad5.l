@@ -7,12 +7,12 @@
 
 
 %%
-color {return _COLOR;}
-am {return _AM;}
-fall { return _FALL;}
-cookie { return _COOKIE;}
-fries { return _FRIES;}
-freeway { return _FREEWAY;}
+(c|C)olor {return _COLOR;}
+(a|A)m {return _AM;}
+(f|F)all { return _FALL;}
+(c|C)ookie { return _COOKIE;}
+(f|F)ries { return _FRIES;}
+(f|F)reeway { return _FREEWAY;}
 
 
 

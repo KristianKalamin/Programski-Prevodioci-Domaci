@@ -376,14 +376,14 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    2,    1,    3,    1,    1,    4,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    2,    1,    3,    1,
+        1,    1,    1,    1,    1,    1,    5,    1,    6,    1,
 
-        4,    5,    1,    1,    6,    1,    7,    8,    9,    1,
-       10,    1,    1,   11,   12,    1,    1,    1,   13,    1,
-       14,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        7,    8,    1,    1,    9,    1,   10,   11,   12,    1,
+       13,    1,    1,   14,   15,    1,    1,    1,   16,    1,
+       17,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -400,17 +400,17 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[15] =
+static const YY_CHAR yy_meta[18] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1
+        1,    1,    1,    1,    1,    1,    1
     } ;
 
 static const flex_int16_t yy_base[31] =
     {   0,
-        0,    4,   30,   31,   20,   18,    2,   31,    0,   19,
-        8,   16,   18,   16,   19,   18,   10,   14,   31,    6,
-        6,   31,   13,   14,   31,   31,    1,   31,   31,    0
+        0,    7,   36,   37,   23,   21,    2,   37,    6,   22,
+       11,   19,   21,   19,   22,   21,   13,   17,   37,    9,
+        9,   37,   16,   17,   37,   37,    4,   37,   37,    0
     } ;
 
 static const flex_int16_t yy_def[31] =
@@ -420,22 +420,24 @@ static const flex_int16_t yy_def[31] =
        29,   29,   29,   29,   29,   29,   29,   29,    0,   29
     } ;
 
-static const flex_int16_t yy_nxt[46] =
+static const flex_int16_t yy_nxt[55] =
     {   0,
-        4,    5,    6,   10,    7,    5,    6,   12,    7,   13,
-       29,   15,   11,   16,   28,   27,   26,   25,   24,   23,
-       22,   21,   20,   19,   18,   17,   14,    9,    8,   29,
-        3,   29,   29,   29,   29,   29,   29,   29,   29,   29,
-       29,   29,   29,   29,   29
+        4,    5,    6,    7,    5,    6,   10,    7,    5,    6,
+        7,    5,    6,   29,    7,   11,   12,   15,   13,   16,
+       28,   27,   26,   25,   24,   23,   22,   21,   20,   19,
+       18,   17,   14,    9,    8,   29,    3,   29,   29,   29,
+       29,   29,   29,   29,   29,   29,   29,   29,   29,   29,
+       29,   29,   29,   29
     } ;
 
-static const flex_int16_t yy_chk[46] =
+static const flex_int16_t yy_chk[55] =
     {   0,
-       30,    1,    1,    7,    1,    2,    2,    9,    2,    9,
-        0,   11,    7,   11,   27,   24,   23,   21,   20,   18,
-       17,   16,   15,   14,   13,   12,   10,    6,    5,    3,
+       30,    1,    1,    1,    1,    1,    7,    1,    2,    2,
+        2,    2,    2,    0,    2,    7,    9,   11,    9,   11,
+       27,   24,   23,   21,   20,   18,   17,   16,   15,   14,
+       13,   12,   10,    6,    5,    3,   29,   29,   29,   29,
        29,   29,   29,   29,   29,   29,   29,   29,   29,   29,
-       29,   29,   29,   29,   29
+       29,   29,   29,   29
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -456,8 +458,8 @@ char *yytext;
 #line 4 "zad5.l"
     #define YYSTYPE char*
     #include "zad5.tab.h"
-#line 460 "lex.yy.c"
-#line 461 "lex.yy.c"
+#line 462 "lex.yy.c"
+#line 463 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -676,7 +678,7 @@ YY_DECL
 	{
 #line 9 "zad5.l"
 
-#line 680 "lex.yy.c"
+#line 682 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -709,7 +711,7 @@ yy_match:
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 31 );
+		while ( yy_base[yy_current_state] != 37 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -768,7 +770,7 @@ YY_RULE_SETUP
 #line 19 "zad5.l"
 ECHO;
 	YY_BREAK
-#line 772 "lex.yy.c"
+#line 774 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
