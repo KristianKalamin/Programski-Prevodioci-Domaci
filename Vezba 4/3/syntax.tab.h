@@ -63,7 +63,10 @@ extern int yydebug;
     _DO = 273,
     _WHILE = 274,
     _COMMA = 275,
-    ONLY_IF = 276
+    _BREAK = 276,
+    _LSBRACKET = 277,
+    _RSBRACKET = 278,
+    ONLY_IF = 279
   };
 #endif
 

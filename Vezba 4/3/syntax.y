@@ -27,6 +27,9 @@
 %token _DO
 %token _WHILE
 %token _COMMA
+%token _BREAK
+%token _LSBRACKET
+%token _RSBRACKET
 
 %nonassoc ONLY_IF
 %nonassoc _ELSE
@@ -62,6 +65,7 @@ body
 variable_list
   : /* empty */
   | variable_list variable
+  | variable_list array_variable
   ;
 
 variable
@@ -71,8 +75,16 @@ variable
 varlist
 	:
 	| _ID 
-	| _ID _COMMA varlist
+  | _ID _COMMA varlist
 	;
+
+array_variable
+  : type array _SEMICOLON
+  ;
+
+array
+  : _ID _LSBRACKET literal _RSBRACKET 
+  ;
 
 
 statement_list
@@ -87,6 +99,22 @@ statement
   | if_statement
   | return_statement
 	| do_while_statement
+  | while_statement
+  | break_statement
+  ;
+
+break_statement
+  : _BREAK _SEMICOLON 
+  ;
+
+
+while_statement
+  : _WHILE _LPAREN rel_exp _RPAREN while_body_statement
+  ;
+
+while_body_statement
+  : compound_statement
+  | assignment_statement
   ;
 
 arop_statement

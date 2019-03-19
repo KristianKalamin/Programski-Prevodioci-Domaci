@@ -14,8 +14,9 @@
 "if"                 { return _IF; }
 "else"               { return _ELSE; }
 "return"             { return _RETURN; }
-"do"		     { return _DO; }
-"while"		     { return _WHILE; }
+"do"		             { return _DO; }
+"while"		           { return _WHILE; }
+"break"              { return _BREAK; }
 
 "("                  { return _LPAREN; }
 ")"                  { return _RPAREN; }
@@ -23,10 +24,11 @@
 "}"                  { return _RBRACKET; }
 ";"                  { return _SEMICOLON; }
 "="                  { return _ASSIGN; }
-","		     { return _COMMA; }
+","		               { return _COMMA; }
 "+"                  { return _AROP; }
 "-"                  { return _AROP; }
-
+"["                  { return _LSBRACKET;}
+"]"                  { return _RSBRACKET;}
 "<"                  { return _RELOP; }
 ">"                  { return _RELOP; }
 "<="                 { return _RELOP; }
