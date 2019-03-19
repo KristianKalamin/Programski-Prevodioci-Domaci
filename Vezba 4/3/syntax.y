@@ -101,12 +101,16 @@ statement
 	| do_while_statement
   | while_statement
   | break_statement
+  | init_statement
+  ;
+
+init_statement
+  : _TYPE _ID _ASSIGN literal _SEMICOLON
   ;
 
 break_statement
   : _BREAK _SEMICOLON 
   ;
-
 
 while_statement
   : _WHILE _LPAREN rel_exp _RPAREN while_body_statement
@@ -130,7 +134,17 @@ compound_statement
   ;
 
 assignment_statement
-  : _ID _ASSIGN num_exp _SEMICOLON
+  : var _ASSIGN num_exp operation _SEMICOLON
+  ;
+
+var
+  : _ID
+  | array
+  ;
+
+operation
+  : 
+  | _AROP num_exp
   ;
 
 num_exp
@@ -144,6 +158,7 @@ exp
   | function_call
   | _LPAREN num_exp _RPAREN
   | _AROP
+  | array
   ;
 
 literal
