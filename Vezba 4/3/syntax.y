@@ -59,7 +59,13 @@ parameter
   ;
 
 body
-  : _LBRACKET variable_list statement_list _RBRACKET
+  : _LBRACKET lists _RBRACKET
+  ;
+
+lists
+  : /* po meni ovako bi trebalo ali ne radi :( */
+  | variable_list 
+  | statement_list
   ;
 
 variable_list
@@ -69,12 +75,12 @@ variable_list
   ;
 
 variable
-  : type varlist _SEMICOLON
+  : type varlist _SEMICOLON 
   ;
 
 varlist
 	:
-	| _ID 
+	| _ID varlist
   | _ID _COMMA varlist
 	;
 

@@ -1,15 +1,12 @@
 
 int main() {
-
-
-
   int n[3];
-
   int a;
-  a = 0;
-  
   int b;
-  b = 0;
+  a = 0;
+
+  int b;
+  b = 0;  
 
 	int a, b, c;
   a = b + c++ - 5;
