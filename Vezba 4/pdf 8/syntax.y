@@ -56,7 +56,7 @@ body
   ;
 
 lists
-  :
+  : /* nisam uspeo da nadjem drugi nacin samo ovaj "radi" */
   | variable_list statement_list lists
   | statement_list variable_list lists
   ;
@@ -67,7 +67,7 @@ variable_list
   ;
 
 variable
-  : type _ID _SEMICOLON
+  : type _ID _SEMICOLON 
   ;
 
 statement_list
