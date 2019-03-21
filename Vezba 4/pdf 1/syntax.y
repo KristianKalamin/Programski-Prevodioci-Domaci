@@ -24,6 +24,8 @@
 %token _AROP
 %token _RELOP
 
+%token _WHILE
+
 %nonassoc ONLY_IF
 %nonassoc _ELSE
 
@@ -74,11 +76,16 @@ statement
   | assignment_statement
   | if_statement
   | return_statement
-  | arop_statement
+  | while_statement
   ;
 
-arop_statement
-  : _ID _AROP _AROP _SEMICOLON
+while_statement
+  : _WHILE _LPAREN rel_exp _RPAREN while_body_statement
+  ;
+
+while_body_statement
+  : compound_statement
+  | assignment_statement
   ;
 
 compound_statement
@@ -99,7 +106,6 @@ exp
   | _ID
   | function_call
   | _LPAREN num_exp _RPAREN
-  | _AROP
   ;
 
 literal
@@ -136,7 +142,7 @@ return_statement
 %%
 
 int yyerror(char *s) {
-  fprintf(stderr, "\nline %d: ERROR: %s\n", yylineno, s);
+  fprintf(stderr, "\nline %d: ERROR: %s", yylineno, s);
   return 0;
 }
 

@@ -24,6 +24,9 @@
 %token _AROP
 %token _RELOP
 
+%token _LSBRACKET
+%token _RSBRACKET
+
 %nonassoc ONLY_IF
 %nonassoc _ELSE
 
@@ -58,6 +61,15 @@ body
 variable_list
   : /* empty */
   | variable_list variable
+  | variable_list array_variable
+  ;
+
+array_variable
+  : type array _SEMICOLON
+  ;
+
+array
+  : _ID _LSBRACKET literal _RSBRACKET 
   ;
 
 variable
@@ -74,11 +86,6 @@ statement
   | assignment_statement
   | if_statement
   | return_statement
-  | arop_statement
-  ;
-
-arop_statement
-  : _ID _AROP _AROP _SEMICOLON
   ;
 
 compound_statement
@@ -86,7 +93,12 @@ compound_statement
   ;
 
 assignment_statement
-  : _ID _ASSIGN num_exp _SEMICOLON
+  : var _ASSIGN num_exp _SEMICOLON
+  ;
+
+var
+  : _ID
+  | array 
   ;
 
 num_exp
@@ -99,7 +111,7 @@ exp
   | _ID
   | function_call
   | _LPAREN num_exp _RPAREN
-  | _AROP
+  | array
   ;
 
 literal
@@ -136,7 +148,7 @@ return_statement
 %%
 
 int yyerror(char *s) {
-  fprintf(stderr, "\nline %d: ERROR: %s\n", yylineno, s);
+  fprintf(stderr, "\nline %d: ERROR: %s", yylineno, s);
   return 0;
 }
 

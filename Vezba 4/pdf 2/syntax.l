@@ -14,6 +14,7 @@
 "if"                 { return _IF; }
 "else"               { return _ELSE; }
 "return"             { return _RETURN; }
+"break"              { return _BREAK; }
 
 "("                  { return _LPAREN; }
 ")"                  { return _RPAREN; }

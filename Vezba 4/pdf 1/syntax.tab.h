@@ -60,7 +60,8 @@ extern int yydebug;
     _SEMICOLON = 270,
     _AROP = 271,
     _RELOP = 272,
-    ONLY_IF = 273
+    _WHILE = 273,
+    ONLY_IF = 274
   };
 #endif
 

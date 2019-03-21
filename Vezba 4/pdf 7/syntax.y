@@ -62,6 +62,7 @@ variable_list
 
 variable
   : type _ID _SEMICOLON
+  | type _ID _ASSIGN literal _SEMICOLON
   ;
 
 statement_list
@@ -74,12 +75,9 @@ statement
   | assignment_statement
   | if_statement
   | return_statement
-  | arop_statement
   ;
 
-arop_statement
-  : _ID _AROP _AROP _SEMICOLON
-  ;
+
 
 compound_statement
   : _LBRACKET statement_list _RBRACKET
@@ -99,7 +97,6 @@ exp
   | _ID
   | function_call
   | _LPAREN num_exp _RPAREN
-  | _AROP
   ;
 
 literal
@@ -136,7 +133,7 @@ return_statement
 %%
 
 int yyerror(char *s) {
-  fprintf(stderr, "\nline %d: ERROR: %s\n", yylineno, s);
+  fprintf(stderr, "\nline %d: ERROR: %s", yylineno, s);
   return 0;
 }
 

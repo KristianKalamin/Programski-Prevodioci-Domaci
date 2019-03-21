@@ -52,7 +52,13 @@ parameter
   ;
 
 body
-  : _LBRACKET variable_list statement_list _RBRACKET
+  : _LBRACKET lists _RBRACKET
+  ;
+
+lists
+  :
+  | variable_list statement_list lists
+  | statement_list variable_list lists
   ;
 
 variable_list
@@ -66,7 +72,7 @@ variable
 
 statement_list
   : /* empty */
-  | statement_list statement
+  | statement_list statement 
   ;
 
 statement
@@ -74,11 +80,6 @@ statement
   | assignment_statement
   | if_statement
   | return_statement
-  | arop_statement
-  ;
-
-arop_statement
-  : _ID _AROP _AROP _SEMICOLON
   ;
 
 compound_statement
@@ -99,7 +100,6 @@ exp
   | _ID
   | function_call
   | _LPAREN num_exp _RPAREN
-  | _AROP
   ;
 
 literal
@@ -136,7 +136,7 @@ return_statement
 %%
 
 int yyerror(char *s) {
-  fprintf(stderr, "\nline %d: ERROR: %s\n", yylineno, s);
+  fprintf(stderr, "\nline %d: ERROR: %s", yylineno, s);
   return 0;
 }
 

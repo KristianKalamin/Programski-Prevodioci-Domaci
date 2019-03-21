@@ -22,6 +22,9 @@
 ";"                  { return _SEMICOLON; }
 "="                  { return _ASSIGN; }
 
+"["                  { return _LSBRACKET;}
+"]"                  { return _RSBRACKET;}
+
 "+"                  { return _AROP; }
 "-"                  { return _AROP; }
 
