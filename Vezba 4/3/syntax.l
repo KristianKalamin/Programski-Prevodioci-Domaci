@@ -24,7 +24,7 @@
 
 "+"                  { return _AROP; }
 "-"                  { return _AROP; }
-
+"++"                 { return _INCREMENT; }
 "<"                  { return _RELOP; }
 ">"                  { return _RELOP; }
 "<="                 { return _RELOP; }

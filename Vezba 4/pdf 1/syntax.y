@@ -80,13 +80,9 @@ statement
   ;
 
 while_statement
-  : _WHILE _LPAREN rel_exp _RPAREN while_body_statement
+  : _WHILE _LPAREN rel_exp _RPAREN statement
   ;
 
-while_body_statement
-  : compound_statement
-  | assignment_statement
-  ;
 
 compound_statement
   : _LBRACKET statement_list _RBRACKET

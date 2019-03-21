@@ -52,13 +52,12 @@ parameter
   ;
 
 body
-  : _LBRACKET lists _RBRACKET
+  : _LBRACKET e _RBRACKET
   ;
 
-lists
-  : /* nisam uspeo da nadjem drugi nacin samo ovaj "radi" */
-  | variable_list statement_list lists
-  | statement_list variable_list lists
+e
+  : 
+  | e statement_list variable_list
   ;
 
 variable_list

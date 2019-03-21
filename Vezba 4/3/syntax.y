@@ -24,6 +24,8 @@
 %token _AROP
 %token _RELOP
 
+%token _INCREMENT
+
 %nonassoc ONLY_IF
 %nonassoc _ELSE
 
@@ -78,7 +80,7 @@ statement
   ;
 
 arop_statement
-  : _ID _AROP _AROP _SEMICOLON
+  : _ID _INCREMENT _SEMICOLON
   ;
 
 compound_statement
@@ -92,6 +94,7 @@ assignment_statement
 num_exp
   : exp
   | num_exp _AROP exp
+  | num_exp _INCREMENT
   ;
 
 exp
@@ -99,7 +102,6 @@ exp
   | _ID
   | function_call
   | _LPAREN num_exp _RPAREN
-  | _AROP
   ;
 
 literal
