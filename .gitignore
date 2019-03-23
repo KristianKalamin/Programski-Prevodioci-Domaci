@@ -6,3 +6,7 @@ PP Vezba Dodatno/*.depend
 DFA/*.layout
 DFA/*.depend
 Vezba 4/syntax
+*.out
+*.outb
+*.outf
+*.outg
