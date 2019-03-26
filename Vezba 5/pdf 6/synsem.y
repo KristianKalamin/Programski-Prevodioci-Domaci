@@ -15,6 +15,7 @@
   int var_num = 0;
   int fun_idx = -1;
   int fcall_idx = -1;
+  int w = 0;
 %}
 
 %union {
@@ -133,10 +134,18 @@ statement
   | if_statement
   | return_statement
   | while_statement
+  | break_statement
+    {
+      if(w >= 1)
+        err("break statement is not in while loop");
+    }
   ;
 
 break_statement
   : _BREAK _SEMICOLON
+    {
+      ++w;
+    }
   ;
 
 while_statement
@@ -152,6 +161,9 @@ while_statement
 
 while_body
   : _LBRACKET variable_list statement_list break_statement _RBRACKET
+    {
+      w = 0;
+    }
   ;
 
 compound_statement

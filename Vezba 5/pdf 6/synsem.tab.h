@@ -71,7 +71,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 20 "synsem.y" /* yacc.c:1909  */
+#line 21 "synsem.y" /* yacc.c:1909  */
 
   int i;
   char *s;
