@@ -17,6 +17,7 @@ int qwe (int c)
 }
 
 int main() {
+  qwe(1);
  return abs(-5, 2);
   return qwe(2);
   

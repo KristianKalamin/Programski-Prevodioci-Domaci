@@ -148,7 +148,7 @@ compound_statement
   ;
 
 assignment_statement
-  : _ID _ASSIGN num_exp e _SEMICOLON
+  : _ID _ASSIGN num_exp _SEMICOLON
       {
         int idx = lookup_symbol($1, (VAR|PAR));
         if(idx == -1)
@@ -159,17 +159,6 @@ assignment_statement
       }
   ;
 
-e
-  :
-  | _ID _INCREMENT
-    {
-        int idx = lookup_symbol($1, (VAR|PAR));
-        int x = get_kind(idx);
-        printf("!! %d\n",x);
-        if (x != VAR && x != PAR)
-          err("invalid increment");
-    }
-  ;
 
 num_exp
   : exp
@@ -188,6 +177,12 @@ exp
         if($$ == -1)
           err("'%s' undeclared", $1);
       }
+  | _ID _INCREMENT
+    {
+      $$ = lookup_symbol($1, (VAR|PAR));
+      if($$ == -1)
+        err("%s undeclared",$1);
+    }
   | function_call
   | _LPAREN num_exp _RPAREN
       { $$ = $2; }
@@ -274,7 +269,6 @@ int main() {
   init_symtab();
 
   synerr = yyparse();
-  print_symtab();
   clear_symtab();
   
   if(warning_count)
