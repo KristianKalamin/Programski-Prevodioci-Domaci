@@ -135,7 +135,7 @@ statement
   ;
 
 while_statement
-  : _WHILE _LPAREN  _ID _RELOP literal _RPAREN body
+  : _WHILE _LPAREN  _ID _RELOP literal _RPAREN statement
     {
        int idx = lookup_symbol($3, (VAR|PAR));
        if(idx == -1)

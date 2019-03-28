@@ -148,7 +148,7 @@ compound_statement
   ;
 
 assignment_statement
-  : _ID _ASSIGN num_exp _SEMICOLON
+  : _ID _ASSIGN num_exp e _SEMICOLON
       {
         int idx = lookup_symbol($1, (VAR|PAR));
         if(idx == -1)
@@ -159,20 +159,24 @@ assignment_statement
       }
   ;
 
+e
+  :
+  | _ID _INCREMENT
+    {
+        int idx = lookup_symbol($1, (VAR|PAR));
+        int x = get_kind(idx);
+        printf("!! %d\n",x);
+        if (x != VAR && x != PAR)
+          err("invalid increment");
+    }
+  ;
+
 num_exp
   : exp
   | num_exp _AROP exp
       {
         if(get_type($1) != get_type($3))
           err("invalid operands: arithmetic operation");
-      }
-  | num_exp _INCREMENT
-      {
-        int k = get_kind($1);
-        printf("!! %d %d %d \n",k,VAR,PAR);
-        if (k != VAR && k != PAR)
-          err("invalid increment");
-      
       }
   ;
 
@@ -270,7 +274,7 @@ int main() {
   init_symtab();
 
   synerr = yyparse();
-
+  print_symtab();
   clear_symtab();
   
   if(warning_count)

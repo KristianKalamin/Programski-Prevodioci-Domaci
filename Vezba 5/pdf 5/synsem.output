@@ -34,7 +34,7 @@ Grammar
    19          | return_statement
    20          | while_statement
 
-   21 while_statement: _WHILE _LPAREN _ID _RELOP literal _RPAREN body
+   21 while_statement: _WHILE _LPAREN _ID _RELOP literal _RPAREN statement
 
    22 compound_statement: _LBRACKET statement_list _RBRACKET
 
@@ -110,7 +110,7 @@ type (26)
 parameter (27)
     on left: 8 9, on right: 6
 body (28)
-    on left: 10, on right: 6 21
+    on left: 10, on right: 6
 variable_list (29)
     on left: 11 12, on right: 10 12
 variable (30)
@@ -118,7 +118,7 @@ variable (30)
 statement_list (31)
     on left: 14 15, on right: 10 15 22
 statement (32)
-    on left: 16 17 18 19 20, on right: 15 37 38
+    on left: 16 17 18 19 20, on right: 15 21 37 38
 while_statement (33)
     on left: 21, on right: 20
 compound_statement (34)
@@ -400,7 +400,7 @@ State 27
 
 State 28
 
-   21 while_statement: _WHILE . _LPAREN _ID _RELOP literal _RPAREN body
+   21 while_statement: _WHILE . _LPAREN _ID _RELOP literal _RPAREN statement
 
     _LPAREN  shift, and go to state 48
 
@@ -588,7 +588,7 @@ State 47
 
 State 48
 
-   21 while_statement: _WHILE _LPAREN . _ID _RELOP literal _RPAREN body
+   21 while_statement: _WHILE _LPAREN . _ID _RELOP literal _RPAREN statement
 
     _ID  shift, and go to state 58
 
@@ -683,7 +683,7 @@ State 57
 
 State 58
 
-   21 while_statement: _WHILE _LPAREN _ID . _RELOP literal _RPAREN body
+   21 while_statement: _WHILE _LPAREN _ID . _RELOP literal _RPAREN statement
 
     _RELOP  shift, and go to state 66
 
@@ -770,7 +770,7 @@ State 65
 
 State 66
 
-   21 while_statement: _WHILE _LPAREN _ID _RELOP . literal _RPAREN body
+   21 while_statement: _WHILE _LPAREN _ID _RELOP . literal _RPAREN statement
 
     _INT_NUMBER   shift, and go to state 39
     _UINT_NUMBER  shift, and go to state 40
@@ -814,7 +814,7 @@ State 70
 
 State 71
 
-   21 while_statement: _WHILE _LPAREN _ID _RELOP literal . _RPAREN body
+   21 while_statement: _WHILE _LPAREN _ID _RELOP literal . _RPAREN statement
 
     _RPAREN  shift, and go to state 73
 
@@ -828,15 +828,25 @@ State 72
 
 State 73
 
-   21 while_statement: _WHILE _LPAREN _ID _RELOP literal _RPAREN . body
+   21 while_statement: _WHILE _LPAREN _ID _RELOP literal _RPAREN . statement
 
-    _LBRACKET  shift, and go to state 16
+    _IF        shift, and go to state 23
+    _RETURN    shift, and go to state 24
+    _ID        shift, and go to state 25
+    _LBRACKET  shift, and go to state 26
+    _WHILE     shift, and go to state 28
 
-    body  go to state 74
+    statement             go to state 74
+    while_statement       go to state 30
+    compound_statement    go to state 31
+    assignment_statement  go to state 32
+    if_statement          go to state 33
+    if_part               go to state 34
+    return_statement      go to state 35
 
 
 State 74
 
-   21 while_statement: _WHILE _LPAREN _ID _RELOP literal _RPAREN body .
+   21 while_statement: _WHILE _LPAREN _ID _RELOP literal _RPAREN statement .
 
     $default  reduce using rule 21 (while_statement)

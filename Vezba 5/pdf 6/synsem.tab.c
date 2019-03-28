@@ -80,7 +80,7 @@
   int var_num = 0;
   int fun_idx = -1;
   int fcall_idx = -1;
-  int w = 0;
+  bool w = FALSE;
 
 #line 86 "synsem.tab.c" /* yacc.c:339  */
 
@@ -1370,7 +1370,7 @@ yyreduce:
   case 22:
 #line 138 "synsem.y" /* yacc.c:1646  */
     {
-      if(w >= 1)
+      if(w == TRUE)
         err("break statement is not in while loop");
     }
 #line 1377 "synsem.tab.c" /* yacc.c:1646  */
@@ -1379,7 +1379,7 @@ yyreduce:
   case 23:
 #line 146 "synsem.y" /* yacc.c:1646  */
     {
-      ++w;
+      w = TRUE;
     }
 #line 1385 "synsem.tab.c" /* yacc.c:1646  */
     break;
@@ -1399,7 +1399,7 @@ yyreduce:
   case 25:
 #line 164 "synsem.y" /* yacc.c:1646  */
     {
-      w = 0;
+      w = FALSE;
     }
 #line 1405 "synsem.tab.c" /* yacc.c:1646  */
     break;

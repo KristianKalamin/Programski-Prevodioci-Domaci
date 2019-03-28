@@ -36,7 +36,7 @@ Grammar
 
    21 compound_statement: _LBRACKET statement_list _RBRACKET
 
-   22 assignment_statement: _ID _ASSIGN num_exp _SEMICOLON
+   22 assignment_statement: _ID _ASSIGN literal _SEMICOLON
 
    23 num_exp: exp
    24        | num_exp _AROP exp
@@ -121,11 +121,11 @@ compound_statement (32)
 assignment_statement (33)
     on left: 22, on right: 18
 num_exp (34)
-    on left: 23 24, on right: 22 24 28 34 38 39
+    on left: 23 24, on right: 24 28 34 38 39
 exp (35)
     on left: 25 26 27 28, on right: 14 23 24
 literal (36)
-    on left: 29 30, on right: 25
+    on left: 29 30, on right: 22 25
 function_call (37)
     on left: 32, on right: 27
 $@3 (38)
@@ -373,7 +373,7 @@ State 24
 
 State 25
 
-   22 assignment_statement: _ID . _ASSIGN num_exp _SEMICOLON
+   22 assignment_statement: _ID . _ASSIGN literal _SEMICOLON
 
     _ASSIGN  shift, and go to state 45
 
@@ -548,17 +548,12 @@ State 44
 
 State 45
 
-   22 assignment_statement: _ID _ASSIGN . num_exp _SEMICOLON
+   22 assignment_statement: _ID _ASSIGN . literal _SEMICOLON
 
-    _ID           shift, and go to state 37
     _INT_NUMBER   shift, and go to state 38
     _UINT_NUMBER  shift, and go to state 39
-    _LPAREN       shift, and go to state 40
 
-    num_exp        go to state 55
-    exp            go to state 42
-    literal        go to state 43
-    function_call  go to state 44
+    literal  go to state 55
 
 
 State 46
@@ -659,11 +654,9 @@ State 54
 
 State 55
 
-   22 assignment_statement: _ID _ASSIGN num_exp . _SEMICOLON
-   24 num_exp: num_exp . _AROP exp
+   22 assignment_statement: _ID _ASSIGN literal . _SEMICOLON
 
     _SEMICOLON  shift, and go to state 64
-    _AROP       shift, and go to state 54
 
 
 State 56
@@ -753,7 +746,7 @@ State 63
 
 State 64
 
-   22 assignment_statement: _ID _ASSIGN num_exp _SEMICOLON .
+   22 assignment_statement: _ID _ASSIGN literal _SEMICOLON .
 
     $default  reduce using rule 22 (assignment_statement)
 

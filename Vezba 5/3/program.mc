@@ -12,6 +12,6 @@ int main() {
   {
     a = 1;
   }
-  while(abc() < x);
+  while(i < 5);
 }
 

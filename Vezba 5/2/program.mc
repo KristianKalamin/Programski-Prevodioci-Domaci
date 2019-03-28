@@ -12,9 +12,10 @@ int main() {
   int b;
   int c;
   int a;
+  
+ i++;
   a = b + c++;
-  i++;
-  abs++;
+  
   return abs(-5);
 }
 

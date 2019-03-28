@@ -3,10 +3,10 @@
 int main() {
 
   int i;
-
+  int a;
   while(i < 5)
   {
-    int a;
+    a = 1;
   }
 
   return 0;

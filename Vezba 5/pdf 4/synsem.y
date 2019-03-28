@@ -147,7 +147,7 @@ compound_statement
   ;
 
 assignment_statement
-  : _ID _ASSIGN num_exp _SEMICOLON
+  : _ID _ASSIGN literal _SEMICOLON
       {
         int idx = lookup_symbol($1, (VAR|PAR));
         if(idx == -1)

@@ -135,7 +135,16 @@ statement
   ;
 
 do_while_statement
-  : _DO statement _WHILE _LPAREN rel_exp _RPAREN _SEMICOLON
+  : _DO body _WHILE _LPAREN _ID _RELOP literal _RPAREN _SEMICOLON
+    {
+        int s = lookup_symbol($5, (VAR|PAR));
+        if (s == -1)
+          err("%s is not declared",$5);
+
+        if(get_type(s) != get_type($7)) 
+         err("incompatible types");
+
+    }
   ; 
 
 compound_statement
@@ -261,7 +270,6 @@ int main() {
   init_symtab();
 
   synerr = yyparse();
-
   clear_symtab();
   
   if(warning_count)

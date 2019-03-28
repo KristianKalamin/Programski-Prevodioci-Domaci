@@ -34,7 +34,7 @@ Grammar
    19          | return_statement
    20          | do_while_statement
 
-   21 do_while_statement: _DO statement _WHILE _LPAREN rel_exp _RPAREN _SEMICOLON
+   21 do_while_statement: _DO body _WHILE _LPAREN _ID _RELOP literal _RPAREN _SEMICOLON
 
    22 compound_statement: _LBRACKET statement_list _RBRACKET
 
@@ -76,7 +76,7 @@ _TYPE (258) 7
 _IF (259) 38
 _ELSE (260) 37
 _RETURN (261) 40
-_ID (262) 6 9 13 23 27 33
+_ID (262) 6 9 13 21 23 27 33
 _INT_NUMBER (263) 30
 _UINT_NUMBER (264) 31
 _LPAREN (265) 6 21 29 33 38
@@ -86,7 +86,7 @@ _RBRACKET (268) 10 22
 _ASSIGN (269) 23
 _SEMICOLON (270) 13 21 23 40
 _AROP (271) 25
-_RELOP (272) 39
+_RELOP (272) 21 39
 _DO (273) 21
 _WHILE (274) 21
 ONLY_IF (275)
@@ -111,7 +111,7 @@ type (27)
 parameter (28)
     on left: 8 9, on right: 6
 body (29)
-    on left: 10, on right: 6
+    on left: 10, on right: 6 21
 variable_list (30)
     on left: 11 12, on right: 10 12
 variable (31)
@@ -119,7 +119,7 @@ variable (31)
 statement_list (32)
     on left: 14 15, on right: 10 15 22
 statement (33)
-    on left: 16 17 18 19 20, on right: 15 21 37 38
+    on left: 16 17 18 19 20, on right: 15 37 38
 do_while_statement (34)
     on left: 21, on right: 20
 compound_statement (35)
@@ -131,7 +131,7 @@ num_exp (37)
 exp (38)
     on left: 26 27 28 29, on right: 24 25
 literal (39)
-    on left: 30 31, on right: 26
+    on left: 30 31, on right: 21 26
 function_call (40)
     on left: 33, on right: 28
 $@3 (41)
@@ -143,7 +143,7 @@ if_statement (43)
 if_part (44)
     on left: 38, on right: 36 37
 rel_exp (45)
-    on left: 39, on right: 21 38
+    on left: 39, on right: 38
 return_statement (46)
     on left: 40, on right: 19
 
@@ -401,21 +401,11 @@ State 27
 
 State 28
 
-   21 do_while_statement: _DO . statement _WHILE _LPAREN rel_exp _RPAREN _SEMICOLON
+   21 do_while_statement: _DO . body _WHILE _LPAREN _ID _RELOP literal _RPAREN _SEMICOLON
 
-    _IF        shift, and go to state 23
-    _RETURN    shift, and go to state 24
-    _ID        shift, and go to state 25
-    _LBRACKET  shift, and go to state 26
-    _DO        shift, and go to state 28
+    _LBRACKET  shift, and go to state 16
 
-    statement             go to state 48
-    do_while_statement    go to state 30
-    compound_statement    go to state 31
-    assignment_statement  go to state 32
-    if_statement          go to state 33
-    if_part               go to state 34
-    return_statement      go to state 35
+    body  go to state 48
 
 
 State 29
@@ -601,7 +591,7 @@ State 47
 
 State 48
 
-   21 do_while_statement: _DO statement . _WHILE _LPAREN rel_exp _RPAREN _SEMICOLON
+   21 do_while_statement: _DO body . _WHILE _LPAREN _ID _RELOP literal _RPAREN _SEMICOLON
 
     _WHILE  shift, and go to state 58
 
@@ -696,7 +686,7 @@ State 57
 
 State 58
 
-   21 do_while_statement: _DO statement _WHILE . _LPAREN rel_exp _RPAREN _SEMICOLON
+   21 do_while_statement: _DO body _WHILE . _LPAREN _ID _RELOP literal _RPAREN _SEMICOLON
 
     _LPAREN  shift, and go to state 66
 
@@ -783,18 +773,9 @@ State 65
 
 State 66
 
-   21 do_while_statement: _DO statement _WHILE _LPAREN . rel_exp _RPAREN _SEMICOLON
+   21 do_while_statement: _DO body _WHILE _LPAREN . _ID _RELOP literal _RPAREN _SEMICOLON
 
-    _ID           shift, and go to state 38
-    _INT_NUMBER   shift, and go to state 39
-    _UINT_NUMBER  shift, and go to state 40
-    _LPAREN       shift, and go to state 41
-
-    num_exp        go to state 50
-    exp            go to state 43
-    literal        go to state 44
-    function_call  go to state 45
-    rel_exp        go to state 71
+    _ID  shift, and go to state 71
 
 
 State 67
@@ -833,9 +814,9 @@ State 70
 
 State 71
 
-   21 do_while_statement: _DO statement _WHILE _LPAREN rel_exp . _RPAREN _SEMICOLON
+   21 do_while_statement: _DO body _WHILE _LPAREN _ID . _RELOP literal _RPAREN _SEMICOLON
 
-    _RPAREN  shift, and go to state 73
+    _RELOP  shift, and go to state 73
 
 
 State 72
@@ -847,13 +828,30 @@ State 72
 
 State 73
 
-   21 do_while_statement: _DO statement _WHILE _LPAREN rel_exp _RPAREN . _SEMICOLON
+   21 do_while_statement: _DO body _WHILE _LPAREN _ID _RELOP . literal _RPAREN _SEMICOLON
 
-    _SEMICOLON  shift, and go to state 74
+    _INT_NUMBER   shift, and go to state 39
+    _UINT_NUMBER  shift, and go to state 40
+
+    literal  go to state 74
 
 
 State 74
 
-   21 do_while_statement: _DO statement _WHILE _LPAREN rel_exp _RPAREN _SEMICOLON .
+   21 do_while_statement: _DO body _WHILE _LPAREN _ID _RELOP literal . _RPAREN _SEMICOLON
+
+    _RPAREN  shift, and go to state 75
+
+
+State 75
+
+   21 do_while_statement: _DO body _WHILE _LPAREN _ID _RELOP literal _RPAREN . _SEMICOLON
+
+    _SEMICOLON  shift, and go to state 76
+
+
+State 76
+
+   21 do_while_statement: _DO body _WHILE _LPAREN _ID _RELOP literal _RPAREN _SEMICOLON .
 
     $default  reduce using rule 21 (do_while_statement)
