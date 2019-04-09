@@ -140,7 +140,6 @@ try_catch_statement
     {
       if ($5 == EXCEPTION) {
           insert_symbol($6, PAR, $5, 1, NO_ATR);
-          printf("%s\n",$6);
         }
         else {
           err("Must be Exception type");
@@ -267,7 +266,6 @@ int main() {
   init_symtab();
 
   synerr = yyparse();
-  print_symtab();
   clear_symtab();
   
   if(warning_count)
