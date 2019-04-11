@@ -136,10 +136,14 @@ statement
   ;
 
 try_catch_statement
-  : _TRY body _CATCH _LPAREN type _ID _RPAREN body
+  : _TRY statement _CATCH _LPAREN type _ID _RPAREN statement
     {
       if ($5 == EXCEPTION) {
-          insert_symbol($6, PAR, $5, 1, NO_ATR);
+          int idx = lookup_symbol($6, (VAR|PAR));
+          if(idx == -1)
+            insert_symbol($6, PAR, $5, 1, NO_ATR);
+          else
+            err("Redefinition");
         }
         else {
           err("Must be Exception type");
@@ -264,8 +268,10 @@ void warning(char *s) {
 int main() {
   int synerr;
   init_symtab();
-
+ 
   synerr = yyparse();
+
+   print_symtab();
   clear_symtab();
   
   if(warning_count)

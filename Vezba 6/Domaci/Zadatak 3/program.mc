@@ -2,18 +2,20 @@
 int main() {
 
   int a;
-
+  Exception ex;
+  int b;
+  int c;
+  
   try
   {
     a = 1;
   } catch (Exception ex)
   {
     a = 2;
-    int b;
-    int a;
   }
-
-
+  
+  a = 1;
+  
   return 0;
 }
 

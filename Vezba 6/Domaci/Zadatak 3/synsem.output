@@ -34,7 +34,7 @@ Grammar
    19          | return_statement
    20          | try_catch_statement
 
-   21 try_catch_statement: _TRY body _CATCH _LPAREN type _ID _RPAREN body
+   21 try_catch_statement: _TRY statement _CATCH _LPAREN type _ID _RPAREN statement
 
    22 compound_statement: _LBRACKET statement_list _RBRACKET
 
@@ -111,7 +111,7 @@ type (27)
 parameter (28)
     on left: 8 9, on right: 6
 body (29)
-    on left: 10, on right: 6 21
+    on left: 10, on right: 6
 variable_list (30)
     on left: 11 12, on right: 10 12
 variable (31)
@@ -119,7 +119,7 @@ variable (31)
 statement_list (32)
     on left: 14 15, on right: 10 15 22
 statement (33)
-    on left: 16 17 18 19 20, on right: 15 37 38
+    on left: 16 17 18 19 20, on right: 15 21 37 38
 try_catch_statement (34)
     on left: 21, on right: 20
 compound_statement (35)
@@ -401,11 +401,21 @@ State 27
 
 State 28
 
-   21 try_catch_statement: _TRY . body _CATCH _LPAREN type _ID _RPAREN body
+   21 try_catch_statement: _TRY . statement _CATCH _LPAREN type _ID _RPAREN statement
 
-    _LBRACKET  shift, and go to state 16
+    _IF        shift, and go to state 23
+    _RETURN    shift, and go to state 24
+    _ID        shift, and go to state 25
+    _LBRACKET  shift, and go to state 26
+    _TRY       shift, and go to state 28
 
-    body  go to state 48
+    statement             go to state 48
+    try_catch_statement   go to state 30
+    compound_statement    go to state 31
+    assignment_statement  go to state 32
+    if_statement          go to state 33
+    if_part               go to state 34
+    return_statement      go to state 35
 
 
 State 29
@@ -591,7 +601,7 @@ State 47
 
 State 48
 
-   21 try_catch_statement: _TRY body . _CATCH _LPAREN type _ID _RPAREN body
+   21 try_catch_statement: _TRY statement . _CATCH _LPAREN type _ID _RPAREN statement
 
     _CATCH  shift, and go to state 58
 
@@ -686,7 +696,7 @@ State 57
 
 State 58
 
-   21 try_catch_statement: _TRY body _CATCH . _LPAREN type _ID _RPAREN body
+   21 try_catch_statement: _TRY statement _CATCH . _LPAREN type _ID _RPAREN statement
 
     _LPAREN  shift, and go to state 66
 
@@ -773,7 +783,7 @@ State 65
 
 State 66
 
-   21 try_catch_statement: _TRY body _CATCH _LPAREN . type _ID _RPAREN body
+   21 try_catch_statement: _TRY statement _CATCH _LPAREN . type _ID _RPAREN statement
 
     _TYPE  shift, and go to state 1
 
@@ -816,7 +826,7 @@ State 70
 
 State 71
 
-   21 try_catch_statement: _TRY body _CATCH _LPAREN type . _ID _RPAREN body
+   21 try_catch_statement: _TRY statement _CATCH _LPAREN type . _ID _RPAREN statement
 
     _ID  shift, and go to state 73
 
@@ -830,22 +840,32 @@ State 72
 
 State 73
 
-   21 try_catch_statement: _TRY body _CATCH _LPAREN type _ID . _RPAREN body
+   21 try_catch_statement: _TRY statement _CATCH _LPAREN type _ID . _RPAREN statement
 
     _RPAREN  shift, and go to state 74
 
 
 State 74
 
-   21 try_catch_statement: _TRY body _CATCH _LPAREN type _ID _RPAREN . body
+   21 try_catch_statement: _TRY statement _CATCH _LPAREN type _ID _RPAREN . statement
 
-    _LBRACKET  shift, and go to state 16
+    _IF        shift, and go to state 23
+    _RETURN    shift, and go to state 24
+    _ID        shift, and go to state 25
+    _LBRACKET  shift, and go to state 26
+    _TRY       shift, and go to state 28
 
-    body  go to state 75
+    statement             go to state 75
+    try_catch_statement   go to state 30
+    compound_statement    go to state 31
+    assignment_statement  go to state 32
+    if_statement          go to state 33
+    if_part               go to state 34
+    return_statement      go to state 35
 
 
 State 75
 
-   21 try_catch_statement: _TRY body _CATCH _LPAREN type _ID _RPAREN body .
+   21 try_catch_statement: _TRY statement _CATCH _LPAREN type _ID _RPAREN statement .
 
     $default  reduce using rule 21 (try_catch_statement)
