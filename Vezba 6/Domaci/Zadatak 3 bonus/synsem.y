@@ -15,6 +15,7 @@
   int var_num = 0;
   int fun_idx = -1;
   int fcall_idx = -1;
+  int block = 0;
 %}
 
 %union {
@@ -136,18 +137,19 @@ statement
   ;
 
 try_catch_statement
-  : _TRY _LBRACKET statement_list _RBRACKET _CATCH _LPAREN type _ID _RPAREN _LBRACKET statement_list _RBRACKET
+  : _TRY _LBRACKET statement_list _RBRACKET _CATCH _LPAREN type _ID 
     {
-      if ($7 == EXCEPTION) {
-          int idx = lookup_symbol($8, (VAR|PAR));
-          if(idx == -1)
-            insert_symbol($8, PAR, $7, 1, NO_ATR);
-          else
-            err("Redefinition");
-        }
-        else {
-          err("Must be Exception type");
-        }
+      block++;
+      int idx = lookup_symbol($8, (VAR|PAR));
+      if(idx != -1 && get_atr2(idx)==block)
+        err("TSP: Redefinition of variable '%s'",$8);
+      else
+        idx = insert_symbol($8, VAR, $7, 1, block);
+      if(get_type(idx) != EXCEPTION)
+        err("TSP: Only Exception can be declared in try-catch block");
+    } _RPAREN _LBRACKET statement_list _RBRACKET
+    {
+      block--;
     }
   ;
 
